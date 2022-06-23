@@ -1,18 +1,22 @@
 import { useEffect, useState } from "react";
 import React from "react";
 import axios from "axios";
-import UserCard from './UserCard'
+import UserCard from "./UserCard";
 
 
 function UserList() {
-    const [listOfUSer , setListOfUSer ] = useState([{}])
-   useEffect(()=>{
+    const [users , setUsers ] = useState([{}]);
+    useEffect(()=>{
      axios.get("https://jsonplaceholder.typicode.com/users")
-      .then(res => setListOfUSer(res.data) )
-      .catch(error=>error)
-},[] )
+      .then(res=>setUsers(res.data))
+      .catch((err)=>err);
+    }, []);
 return(
-    <div>{listOfUSer.map(el=> <UserCard user={el}/>)}</div>
+    <div style={{
+        display: "flex",
+        justifyContent: "space-around",
+        flexWrap: "wrap",
+      }}>{users.map(el=> <UserCard user={el}/>)}</div>
 )
 }
 export default UserList
